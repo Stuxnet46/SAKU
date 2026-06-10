@@ -812,7 +812,7 @@ function doDel(){txs=txs.filter(x=>x.id!=delId);sv();cdlg('dlg-del');renderHome(
 
 /* HAPUS DATA */
 function openHapus(){document.getElementById('hapus-inp').value='';document.getElementById('dlg-hapus').classList.add('on');setTimeout(()=>document.getElementById('hapus-inp').focus(),300);}
-function doHapus(){if(document.getElementById('hapus-inp').value.trim().toUpperCase()!=='HAPUS'){toast('⚠️ Ketik HAPUS dulu');return;}txs=[];sv();localStorage.removeItem('saku_seeded');cdlg('dlg-hapus');renderHome();if(document.getElementById('pg-riwayat').classList.contains('on'))renderRwyd();if(document.getElementById('pg-grafik').classList.contains('on'))renderGrafik();initTicker();toast('🗑️ Semua data dihapus');}
+function doHapus(){if(document.getElementById('hapus-inp').value.trim().toUpperCase()!=='HAPUS'){toast('⚠️ Ketik HAPUS dulu');return;}txs=[];sv();localStorage.setItem('saku_seeded','1');localStorage.setItem('saku_wiped','1');cdlg('dlg-hapus');renderHome();if(document.getElementById('pg-riwayat').classList.contains('on'))renderRwyd();if(document.getElementById('pg-grafik').classList.contains('on'))renderGrafik();initTicker();toast('🗑️ Semua data dihapus');}
 
 /* LOGOUT */
 function openLogout(){document.getElementById('dlg-logout').classList.add('on');}
@@ -949,7 +949,7 @@ function initApp(){
   if(isDark){document.getElementById('dtgl').classList.add('on');const s=document.getElementById('tsvg');s.innerHTML='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';}
   document.getElementById('lbl-tgt').textContent='Rp '+DAILY.toLocaleString('id-ID')+' / hari';
   document.getElementById('lbl-gaj').textContent='Setiap tanggal '+GDAY;
-  if(!txs.length && !localStorage.getItem('saku_seeded')) seed(); else {renderHome();initTicker();}
+  if(!txs.length && !localStorage.getItem('saku_seeded') && !localStorage.getItem('saku_wiped')) seed(); else {renderHome();initTicker();}
 }
 function seed(){
   const d=[{c:'makan',n:'Makan siang warteg',a:13000,g:6},{c:'transport',n:'Grab ke kantor',a:12000,g:6},{c:'makan',n:'Kopi & snack',a:8500,g:5},{c:'belanja',n:'Indomaret',a:35000,g:5},{c:'makan',n:'Makan malam',a:18000,g:4},{c:'hiburan',n:'Nonton Netflix',a:15000,g:4},{c:'kesehatan',n:'Vitamin C',a:22000,g:3},{c:'transport',n:'KRL commuter',a:7000,g:3},{c:'makan',n:'Makan siang',a:20000,g:2},{c:'belanja',n:'Jajan sore',a:12000,g:2},{c:'makan',n:'Sarapan',a:10000,g:1},{c:'transport',n:'Ojol pulang',a:18000,g:1},{c:'makan',n:'Makan siang',a:15000,g:0}];
@@ -959,4 +959,3 @@ function seed(){
 </script>
 </body>
 </html>
-
